@@ -22,6 +22,16 @@ public class ProductService {
     String file = "testdata/product.json";
     Products product = null;
 
+    public Products readFile (String file){
+        URL url = getClass().getClassLoader().getResource(file);
+        try {
+            product = mapper.readValue(url, Products.class);
+        } catch (IOException e) {
+            System.out.println("File read error");
+            e.printStackTrace();
+        }
+        return product;
+    }
 
     public String saveRecord() {
 
@@ -69,14 +79,5 @@ public class ProductService {
     }
 
 
-         public Products readFile (String file){
-             URL url = getClass().getClassLoader().getResource(file);
-             try {
-                 product = mapper.readValue(url, Products.class);
-             } catch (IOException e) {
-                 System.out.println("File read error");
-                 e.printStackTrace();
-             }
-             return product;
-         }
+
 }
