@@ -78,6 +78,21 @@ public class ProductService {
         Assert.assertEquals(respBody,product,"Entry doesn't exist in DB");
     }
 
-
-
+    public void updateRecord(String id) {
+        String file = "testdata/updateproduct.json";
+        readFile(file);
+        product.setId(id);
+        ValidatableResponse getResp =
+                given()
+                        .baseUri(baseuri)
+                        .basePath(basepath)
+                        .contentType(ContentType.JSON)
+                        .body(product)
+                        .log().all()
+                .when()
+                        .put("/"+id)         // PUT - updating existing data
+                .then()
+                        .log().all()
+                        .assertThat().statusCode(HttpStatus.SC_NO_CONTENT);
+    }
 }
