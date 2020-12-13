@@ -10,18 +10,22 @@ public class ShopTestsRefactored {
     private String baseuri = "http://localhost:8090";
     private String basepath = "/api/v1/products";
     private ObjectMapper mapper = new ObjectMapper();
+    String file = "testdata/product.json";
+    String upfile = "testdata/updateproduct.json";
 
     @Test
     public void saveANewProduct(){
         ProductService productservice = new ProductService();
-        String id = productservice.saveRecord();
-        productservice.findRecord(id);
+        String id = productservice.saveRecord(file);
+        productservice.findRecord(id,file);
     }
 
     @Test
     public void updateExistingProduct(){
+      //  String upfile = "testdata/updateproduct.json";
         ProductService productservice = new ProductService();
-        String id = productservice.saveRecord();
-        productservice.updateRecord(id);
+        String id = productservice.saveRecord(file);
+        productservice.updateRecord(id,upfile);
+        productservice.findRecord(id,upfile);
     }
 }

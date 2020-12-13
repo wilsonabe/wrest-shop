@@ -1,13 +1,11 @@
 package com.orphynova.restshop.service;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.orphynova.restshop.models.Products;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
 import org.testng.Assert;
-import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,7 +17,7 @@ public class ProductService {
     private String baseuri = "http://localhost:8090";
     private String basepath = "/api/v1/products";
     private ObjectMapper mapper = new ObjectMapper();
-    String file = "testdata/product.json";
+   // String file = "testdata/product.json";
     Products product = null;
 
     public Products readFile (String file){
@@ -33,7 +31,7 @@ public class ProductService {
         return product;
     }
 
-    public String saveRecord() {
+    public String saveRecord(String file) {
 
         readFile(file);
         String Id = null;
@@ -57,7 +55,7 @@ public class ProductService {
     }
 
 
-    public void findRecord(String id) {
+    public void findRecord(String id, String file) {
 
         readFile(file);
      //checking if products exists in DB using GET operator
@@ -78,8 +76,8 @@ public class ProductService {
         Assert.assertEquals(respBody,product,"Entry doesn't exist in DB");
     }
 
-    public void updateRecord(String id) {
-        String file = "testdata/updateproduct.json";
+    public void updateRecord(String id, String file) {
+       // String upfile = "testdata/updateproduct.json";
         readFile(file);
         product.setId(id);
         ValidatableResponse getResp =
